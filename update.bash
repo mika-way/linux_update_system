@@ -54,7 +54,8 @@ if [[ $REPLY =~ ^[nN]$ ]]; then
     exit 0
 fi
 
-#wenn kein Pakete Manager erkannt wurde... Opfer
+#wenn kein Pakete Manager erkannt wurde... Opfer 
+#natürtlich nur spaß :P 
 if [ "$PACKAGE_MANAGER" == "unknown" ]; then
     echo "Uhm... ich konnte keinen bekannten Paketmanager finden. Bist du sicher, dass das hier Linux ist?"
     exit 1
@@ -75,8 +76,8 @@ case "$PACKAGE_MANAGER" in
         ;;
     "pacman")
         echo "Deine Apt Pacman werden bestellt c. C. c. C. c."
-        sudo pacman -Syu --noconfirm # --noconfirm ist wie -y bei apt/dnf
-        sudo pacman -Qtdq | sudo pacman -Rns - # Autoremove bei Pacman ist etwas anders
+        sudo pacman -Syu --noconfirm
+        sudo pacman -Qtdq | sudo pacman -Rns -
         ;;
     "zypper")
         echo "Deine Zypper Pakete werden bestellt..."
