@@ -127,6 +127,6 @@ if [[ $REPLY =~ ^[jJ]$ ]]; then
     echo "Okay, starte neu! Bis gleich, ich halt dir die Tür auf..."
     reboot
 else
-    echo "Okay dann kein Neustrat dann AufWiederUpdaten!"
+    echo "Okay dann kein Neustart dann AufWiederUpdaten!"
     exit 0
 fi
