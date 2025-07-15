@@ -44,9 +44,10 @@ HOSTNAME=$(hostname)
 PACKAGE_MANAGER=$(detect_package_manager)
 FLATPAK_INSTALLED=$(detect_flatpak)
 SNAP_INSTALLED=$(detect_snap)
+COMMAND_LINE="-> "
 
 echo "Möchtest du den dein $SYSTEM auf $HOSTNAME System neue Pakete bestellen? [J/N]"
-read -r
+read -p "$COMMAND_LINE" -r
 echo 
 
 if [[ $REPLY =~ ^[nN]$ ]]; then
@@ -120,8 +121,8 @@ fi
 
 #Neustart abfrage
 echo "Alles ist an Ort und Stelle!" #wir sind ja nicht dpd oder deutsche post oder hermes :/
-echo "Möchtest du das System jetzt neu starten? (J/N)"
-read -r
+echo "Möchtest du das System jetzt neu starten? [J/N]"
+read -p "$COMMAND_LINE" -r
 echo 
 if [[ $REPLY =~ ^[jJ]$ ]]; then
     echo "Okay, starte neu! Bis gleich, ich halt dir die Tür auf..."
