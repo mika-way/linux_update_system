@@ -73,7 +73,7 @@ case "$PACKAGE_MANAGER" in
         ;;
     "dnf")
         echo "Deine DNF Pakete werden bestellt..."
-        sudo dnf update -y && sudo dnf autoremove -y
+        sudo dnf update --refresh && sudo dnf autoremove -y
         ;;
     "pacman")
         echo "Deine Apt Pacman werden bestellt c. C. c. C. c."
@@ -94,6 +94,15 @@ if $FLATPAK_INSTALLED; then
     echo "2. Flatpak Pakete werden geliefert.."
     if flatpak update; then
         echo "Flatpak Packete sind abgestellt worden."
+        echo " "
+        echo "Premium Flatpak Pakete werden geliefert.."
+        if sudo flatpak update; then
+            echo "Flatpak Packete sind abgestellt worden."
+        else
+            echo "Die Flatpak Packete konnten nicht geliefert werden..."
+            exit 1
+        fi
+
     else
         echo "Die Flatpak Packete konnten nicht zugestellt werden."
         exit 1
