@@ -78,7 +78,7 @@ case "$PACKAGE_MANAGER" in
     "pacman")
         echo "Deine Apt Pacman werden bestellt c. C. c. C. c."
         sudo pacman -Syu --noconfirm
-        sudo pacman -Qtdq | sudo pacman -Rns -
+        sudo pacman -Qtdq
         ;;
     "zypper")
         echo "Deine Zypper Pakete werden bestellt..."
