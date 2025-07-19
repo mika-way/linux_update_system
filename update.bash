@@ -76,7 +76,7 @@ case "$PACKAGE_MANAGER" in
         sudo dnf update --refresh && sudo dnf autoremove -y
         ;;
     "pacman")
-        echo "Deine Apt Pacman werden bestellt c. C. c. C. c."
+        echo "Deine Pacman werden bestellt c. C. c. C. c."
         sudo pacman -Syu --noconfirm
         sudo pacman -Qtdq
         ;;
