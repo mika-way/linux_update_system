@@ -31,7 +31,6 @@ detect_snap() {
     fi
 }
 
-
 #abfrage ob der User root ist
 if [[ $EUID -ne 0 ]]; then
    echo "Moment mal, Kumpel! Du musst dieses Skript als Root ausführen, sonst verweigert mein System den Dienst."
