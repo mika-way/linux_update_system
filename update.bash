@@ -31,9 +31,17 @@ detect_snap() {
     fi
 }
 
+detect_yay() {
+    if command -v yay >/dev/null; then
+        echo true
+    else
+        echo false
+    fi
+}
+
 #abfrage ob der User root ist
 if [[ $EUID -ne 0 ]]; then
-   echo "Moment mal, Kumpel! Du musst dieses Skript als Root ausführen, sonst verweigert mein System den Dienst."
+   echo "Moment mal, Kumpel! Du musst dieses Skript als Root ausführen, sonst verweigert ich den Dienst!"
    echo "Versuch's mal mit: sudo $0"
    exit 1
 fi
@@ -43,6 +51,7 @@ HOSTNAME=$(hostname)
 PACKAGE_MANAGER=$(detect_package_manager)
 FLATPAK_INSTALLED=$(detect_flatpak)
 SNAP_INSTALLED=$(detect_snap)
+YAY_INSTALLED=$(detect_yay)
 COMMAND_LINE="-> "
 
 echo "Möchtest du den dein $SYSTEM auf $HOSTNAME System neue Pakete bestellen? [J/N]"
@@ -88,20 +97,11 @@ case "$PACKAGE_MANAGER" in
         ;;
 esac
 
-#flatpak update
+#system flatpak update
 if $FLATPAK_INSTALLED; then
-    echo "2. Flatpak Pakete werden geliefert.."
-    if flatpak update; then
+    echo "2. Premium Flatpak Pakete werden geliefert.."
+    if sudo flatpak update; then
         echo "Flatpak Packete sind abgestellt worden."
-        echo " "
-        echo "Premium Flatpak Pakete werden geliefert.."
-        if sudo flatpak update; then
-            echo "Flatpak Packete sind abgestellt worden."
-        else
-            echo "Die Flatpak Packete konnten nicht geliefert werden..."
-            exit 1
-        fi
-
     else
         echo "Die Flatpak Packete konnten nicht zugestellt werden."
         exit 1
@@ -109,6 +109,14 @@ if $FLATPAK_INSTALLED; then
     echo " "
 else
     echo "Du hast kein Flatpak..."
+fi
+
+#user flatpak update
+if flatpak update; then
+    echo "Flatpak Packete sind abgestellt worden."
+else
+    echo "Die Flatpak Packete konnten nicht geliefert werden..."
+    exit 1
 fi
 
 #snap update
@@ -124,6 +132,21 @@ if $SNAP_INSTALLED; then
 else
     echo "Du hast kein Snap..."
 fi
+
+#yay update
+if $YAY_INSTALLED; then
+    echo "3. Yay Pakete werden geliefert.."
+    if yay -Syu; then
+        echo "Yay Packete sind abgestellt worden."
+    else
+        echo "Die Yay Packete konnten nicht"
+        exit 1
+    fi
+    echo " "
+else
+    echo "Du hast kein Yay..."
+fi
+
 
 
 
